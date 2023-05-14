@@ -1,34 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Testing Server Actions (Alpha in Next.js 13.4)
 
-## Getting Started
+## Simple Form Post (/form-post)
 
-First, run the development server:
+Our todos are stored in an array in memory **on the server** (not on the client).
+In real life, we would store them in a database.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Form Post With Status (/form-post-with-status)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This is the same as the previous example, but with a delay to simulate a slow server.  
+We can use an experimental hook useFormStatus to disable the submit button while the server is processing the request.  
+Since hooks are only allowed in client components, we had to create a separate component for the button.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Form Post With Transition (/form-post-with-transition)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This is the same as the previous example, but we do not use a form.  
+Instead, we pass the server function as a prop to the button component.  
+We also moved the input field into the button component.  
+We call the server function via the onClick property of the button.
+Notice that we wrapped the server function in a transition, so that we can disable the button while pending.
 
-## Learn More
+## Pokemon Search (/pokemon-search)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This is a demo of how we can import and call a server function from a client component.
